@@ -1,17 +1,18 @@
 class Event:
     """
-    Clase que representa un incidente, atributos: id, timestamp, categoria, prioridad, texto, origen, destino
+    Clase que representa un incidente.
+    
+    Atributos:
+        event_id (str): Identificador único del evento.
+        timestamp (datetime): Fecha y hora del incidente.
+        categoria (str): Tipo de incidente (seguridad, red, etc.).
+        prioridad (int): Nivel de urgencia (1 = más crítico).
+        texto (str): Descripción del incidente.
+        origen (str): Nodo o sistema de origen.
+        destino (str): Nodo o sistema de destino.
     """
-    def __init__(
-        self,
-        event_id,
-        timestamp,
-        categoria,
-        prioridad,
-        texto,
-        origen,
-        destino
-    ):
+
+    def __init__(self, event_id, timestamp, categoria, prioridad, texto, origen, destino):
         self.event_id = event_id
         self.timestamp = timestamp
         self.categoria = categoria
@@ -27,5 +28,3 @@ class Event:
             f"categoria={self.categoria}, "
             f"prioridad={self.prioridad})"
         )
-    
-print(Event)

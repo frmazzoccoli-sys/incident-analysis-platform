@@ -7,20 +7,23 @@ Proyecto AyED sobre análisis de incidentes.
 ```
 incident-analysis-platform/
 │
-├── data/                 # datasets, pruebas, ejemplos
+├── data/                 # datasets, pruebas, ejemplos, archivos de entrada/salida
 ├── docs/                 # documentación
-├── tests/                # tests unitarios
+├── tests/                # pruebas unitarias y validaciones
 │
-├── src/
+├── src/                  # código fuente del proyecto
 │   ├── main.py           # punto de entrada
-│   ├── modelos/          # clases (Incidente, Nodo, Event, etc.)
-│   ├── estructuras/      # árboles, heaps, grafos, colas
-│   ├── algoritmos/       # búsquedas, rutas, patrones
+│   ├── modelos/          # clases (Event, Incidente, Nodo, etc.)
+│   ├── estructuras/      # colas, heaps, árboles, grafos
+│   │   ├── __init__.py
+│   │   ├── queue_eventos.py      # Queue FIFO
+│   │   └── priority_queue.py    # PriorityQueue con heapq
+│   ├── algoritmos/       # búsquedas, ordenamientos, rutas
 │   ├── seguridad/        # RSA, cifrado, hashing
 │   ├── metricas/         # tiempos, complejidad, benchmarking
-│   ├── servicios/        # lógica de negocio
-│   └── utils/            # helpers
-│
+│   ├── servicios/        # EventStore, Index, Router, TextAnalyzer
+	└── utils/            # helpers
+
 ├── requirements.txt
 └── README.md
 ```
@@ -33,11 +36,11 @@ Breve descripción de carpetas:
 - `src/` → código fuente del proyecto
 - `main.py` → punto de entrada del programa
 - `modelos/` → clases como `Event`
-- `estructuras/` → colas, heaps, árboles, grafos, etc.
+- `estructuras/` → `queue_eventos.py`, `priority_queue.py`, colas y heaps
 - `algoritmos/` → búsquedas, ordenamientos, rutas
 - `seguridad/` → RSA, cifrado, hashing
-- `metricas/` → mediciones, `timeit`, benchmarking
-- `servicios/` → EventStore, Index, Router, TextAnalyzer
+- `metricas/` → mediciones y benchmarking
+- `servicios/` → implementación de la lógica de negocio
 - `utils/` → funciones auxiliares reutilizables
 - `requirements.txt` → dependencias del proyecto
 
