@@ -18,7 +18,7 @@ Ordenamientos
 Algoritmo           Complejidad             ¿Qué esperamos ver?
 Burbuja             O(n²)                   Tiempo explota con n grande
 Mergesort           O(n log n)              Tiempo crece moderadamente
-sorted(             O(n log n)              Similar a mergesort pero más rápido (C nativo)
+sorted()            O(n log n)              Similar a mergesort pero más rápido (C nativo)
 
 Para que la diferencia entre O(n), O(n log n) y O(n²) sea visible, necesitamos tamaños suficientemente grandes: 
 tamanios = [100, 500, 1000, 2000, 5000]
@@ -27,11 +27,13 @@ Con n=5000, burbuja hace ~25.000.000 comparaciones mientras mergesort hace ~60.0
 
 ¿Cómo manejamos la memoria?
 La consigna dice "si aplica". Para memoria usamos el módulo tracemalloc de Python (estándar, sin dependencias externas):
-pythonimport tracemalloc
+
+import tracemalloc
 tracemalloc.start()
 # ... código a medir ...
 _, pico = tracemalloc.get_traced_memory()
 tracemalloc.stop()
+
 Esto nos da el pico de memoria en bytes durante la ejecución.
 
 Estructura del modulo:
@@ -46,8 +48,9 @@ src/
     ├── __init__.py
     ├── medidor.py      ← funciones de medición con timeit y tracemalloc
     └── reporte.py      ← funciones para mostrar resultados en consola
+
 Y un script separado que ejecuta todas las mediciones:
-data/
+benchmarks/
 └── benchmark.py        ← script que genera y mide datasets de tamaños crecientes
 
 --------------------------
@@ -63,7 +66,7 @@ Plan de implementación
 1. src/metricas/medidor.py   → funciones medir_tiempo() y medir_memoria()
 2. src/metricas/reporte.py   → función mostrar_reporte()
 3. src/metricas/__init__.py  → exports del módulo
-4. data/benchmark.py         → script principal que corre todo
+4. benchmarks/benchmark.py   → script principal que corre todo
 
 Lo que vamos a mostrar al ejecutarse:
 =============================================

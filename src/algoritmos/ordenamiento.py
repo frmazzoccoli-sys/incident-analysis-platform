@@ -1,7 +1,8 @@
 # src/algoritmos/ordenamiento.py
 
-
+# BURBUJA
 def burbuja(eventos):
+
     """
     Ordena una lista de eventos por timestamp usando el algoritmo de burbuja.
 
@@ -23,6 +24,7 @@ def burbuja(eventos):
         Promedio:    O(n²).
         Memoria:     O(n)   → crea una copia de la lista.
     """
+
     resultado = eventos[:]         # copia para no modificar la lista original
     n = len(resultado)
 
@@ -39,8 +41,9 @@ def burbuja(eventos):
 
     return resultado
 
-
+# MERGESORT
 def mergesort(eventos):
+
     """
     Ordena una lista de eventos por timestamp usando el algoritmo mergesort.
 
@@ -61,6 +64,7 @@ def mergesort(eventos):
         Promedio:    O(n log n).
         Memoria:     O(n)       → requiere listas auxiliares en la fusión.
     """
+
     if len(eventos) <= 1:
         return eventos[:]
 
@@ -70,8 +74,9 @@ def mergesort(eventos):
 
     return _fusionar(izquierda, derecha)
 
-
+# FUSIONAR PARA MERGESORT
 def _fusionar(izquierda, derecha):
+
     """
     Fusiona dos listas ordenadas en una sola lista ordenada.
 
@@ -87,6 +92,7 @@ def _fusionar(izquierda, derecha):
 
     Complejidad: O(n) donde n es la suma de ambas listas.
     """
+
     resultado = []
     i = j = 0
 

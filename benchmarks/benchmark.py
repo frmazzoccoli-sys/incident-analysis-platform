@@ -1,4 +1,4 @@
-# data/benchmark.py
+# benchmarks/benchmark.py
 
 import sys
 import os

@@ -2,8 +2,10 @@
 
 import bisect
 
+# BUSQUEDA SECUENCIAL
 
 def busqueda_secuencial(eventos, event_id):
+
     """
     Busca un evento por event_id recorriendo la lista elemento por elemento.
 
@@ -22,13 +24,16 @@ def busqueda_secuencial(eventos, event_id):
         Peor caso:   O(n) → el evento está al final o no existe.
         Promedio:    O(n/2) → simplificado como O(n).
     """
+
     for evento in eventos:
         if evento.event_id == event_id:
             return evento
     return None
 
+# BUSQUEDA BINARIA
 
 def busqueda_binaria(eventos_ordenados, event_id):
+
     """
     Busca un evento por event_id usando bisect sobre una lista ordenada.
 
@@ -51,7 +56,9 @@ def busqueda_binaria(eventos_ordenados, event_id):
         Peor caso:   O(log n) → divide la lista log n veces.
         Promedio:    O(log n).
     """
+
     # Extraemos solo los ids para que bisect pueda comparar
+    
     ids = [e.event_id for e in eventos_ordenados]
     indice = bisect.bisect_left(ids, event_id)
 

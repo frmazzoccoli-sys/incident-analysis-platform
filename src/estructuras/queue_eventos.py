@@ -2,8 +2,9 @@
 
 from collections import deque
 
-
+# QUEUE (FIFO)
 class QueueEventos:
+
     """
     Cola FIFO para gestión de eventos en orden de llegada.
 
@@ -19,10 +20,13 @@ class QueueEventos:
     """
 
     def __init__(self):
+
         """Inicializa una cola vacía."""
+
         self._cola = deque()
 
     def enqueue(self, evento):
+
         """
         Agrega un evento al final de la cola.
 
@@ -31,9 +35,11 @@ class QueueEventos:
 
         Complejidad: O(1)
         """
+
         self._cola.append(evento)
 
     def dequeue(self):
+
         """
         Elimina y retorna el evento del frente de la cola.
 
@@ -45,11 +51,13 @@ class QueueEventos:
 
         Complejidad: O(1)
         """
+
         if self.esta_vacia():
             raise IndexError("No se puede hacer dequeue: la cola está vacía.")
         return self._cola.popleft()
 
     def peek(self):
+
         """
         Retorna el evento del frente sin eliminarlo.
 
@@ -61,11 +69,13 @@ class QueueEventos:
 
         Complejidad: O(1)
         """
+
         if self.esta_vacia():
             raise IndexError("No se puede hacer peek: la cola está vacía.")
         return self._cola[0]
 
     def esta_vacia(self):
+
         """
         Indica si la cola no tiene elementos.
 
@@ -74,9 +84,11 @@ class QueueEventos:
 
         Complejidad: O(1)
         """
+
         return len(self._cola) == 0
 
     def tamanio(self):
+
         """
         Retorna la cantidad de eventos en la cola.
 
@@ -85,6 +97,7 @@ class QueueEventos:
 
         Complejidad: O(1)
         """
+        
         return len(self._cola)
 
     def __repr__(self):

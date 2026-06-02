@@ -34,20 +34,20 @@ Definamos la convención: prioridad 1 = más crítico (como en sistemas de ticke
 Para desempatar cuando dos eventos tienen la misma prioridad, usamos el timestamp (el más antiguo primero).
 
 Resumen de decisiones tomadas
-Decisión                                      Alternativa descartada         Razón
-´deque´ para Queue                            list                         popleft() es O(1) vs O(n)
-´heapq´ para Priority                         Solo (prioridad, evento)     Desempate determinístico sin comparar objetos
-Prioridad 1 = más crítico (min-heap directo)  Invertir con -1                Más legible, no requiere transformación
+Decisión                                      Alternativa descartada          Razón
+´deque´ para Queue                            list                            popleft() es O(1) vs O(n)
+´heapq´ para Priority                         Solo (prioridad, evento)        Desempate determinístico sin comparar objetos
+Prioridad 1 = más crítico (min-heap directo)  Invertir con -1                 Más legible, no requiere transformación
 
 -----------------------------
 
 BST
 Un Binary Search Tree es un árbol binario donde cada nodo cumple esta propiedad:
-        E004
-       /    \
-    E002    E006
-    /  \    /  \
- E001  E003 E005 E007
+         E004
+       /       \
+    E002       E006
+    /  \       /  \
+ E001  E003 E005  E007
 
 Todo lo que está a la izquierda de un nodo tiene un valor menor
 Todo lo que está a la derecha tiene un valor mayor
@@ -60,15 +60,15 @@ Insertar                        O(1)                O(log n)
 Buscar                          O(n)                O(log n)
 Eliminar                        O(n)                O(log n)
 Recorrer ordenado               O(n log n)          O(n)
+
 El recorrido ordenado es gratis en un BST usando inorden (izquierda → raíz → derecha).
 
 ¿Por qué no usar un diccionario directamente?
 Un diccionario también busca en O(1). La razón de implementar BST es:
-
-El TP lo requiere explícitamente
-Un BST permite recorrer eventos ordenados sin costo extra
-Permite búsquedas por rango (todos los eventos entre E010 y E050)
-Demuestra comprensión de estructuras jerárquicas para el informe
+- Las consignas lo requieren explícitamente
+- Un BST permite recorrer eventos ordenados sin costo extra
+- Permite búsquedas por rango (todos los eventos entre E010 y E050)
+- Demuestra comprensión de estructuras jerárquicas
 
 ¿Por qué campo ordenamos?
 Tenemos estas opciones:

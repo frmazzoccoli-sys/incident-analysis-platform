@@ -7,8 +7,9 @@ Proyecto AyED sobre análisis de incidentes.
 ```
 incident-analysis-platform/
 │
-├── data/                            # datasets, pruebas, ejemplos, archivos de entrada/salida
+├── benchmarks/                      # scripts de evaluación de performance
 │       └── benchmark.py             # script que genera y mide datasets de tamaños crecientes
+├── data/                            # datasets, pruebas, ejemplos, archivos de entrada/salida
 ├── docs/                            # documentación
 ├── tests/                           # pruebas unitarias y validaciones
 │

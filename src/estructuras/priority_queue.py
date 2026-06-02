@@ -3,8 +3,9 @@
 import heapq
 import itertools
 
-
+# PRIORITY QUEUE
 class PriorityQueueEventos:
+
     """
     Cola de prioridad para gestión de eventos por severidad.
 
@@ -25,11 +26,14 @@ class PriorityQueueEventos:
     """
 
     def __init__(self):
+
         """Inicializa una cola de prioridad vacía."""
+
         self._heap = []
         self._contador = itertools.count()
 
     def push(self, evento):
+
         """
         Inserta un evento en la cola respetando su prioridad.
 
@@ -38,10 +42,12 @@ class PriorityQueueEventos:
 
         Complejidad: O(log n)
         """
+
         tupla = (evento.prioridad, evento.timestamp, next(self._contador), evento)
         heapq.heappush(self._heap, tupla)
 
     def pop(self):
+
         """
         Extrae y retorna el evento más prioritario.
 
@@ -53,12 +59,14 @@ class PriorityQueueEventos:
 
         Complejidad: O(log n)
         """
+
         if self.esta_vacia():
             raise IndexError("No se puede hacer pop: la cola está vacía.")
         _, _, _, evento = heapq.heappop(self._heap)
         return evento
 
     def peek(self):
+
         """
         Retorna el evento más prioritario sin extraerlo.
 
@@ -70,12 +78,14 @@ class PriorityQueueEventos:
 
         Complejidad: O(1)
         """
+
         if self.esta_vacia():
             raise IndexError("No se puede hacer peek: la cola está vacía.")
         _, _, _, evento = self._heap[0]
         return evento
 
     def esta_vacia(self):
+
         """
         Indica si la cola no tiene elementos.
 
@@ -84,9 +94,11 @@ class PriorityQueueEventos:
 
         Complejidad: O(1)
         """
+
         return len(self._heap) == 0
 
     def tamanio(self):
+
         """
         Retorna la cantidad de eventos en la cola.
 
@@ -95,6 +107,7 @@ class PriorityQueueEventos:
 
         Complejidad: O(1)
         """
+        
         return len(self._heap)
 
     def __repr__(self):

@@ -1,6 +1,8 @@
 # src/estructuras/bst.py
 
+# NODO BST
 class NodoBST:
+
     """
     Nodo interno del árbol BST.
 
@@ -15,18 +17,21 @@ class NodoBST:
     """
 
     def __init__(self, evento):
+
         """
         Inicializa un nodo con un evento y sin hijos.
 
         Args:
             evento (Event): El incidente a almacenar.
         """
+
         self.evento = evento
         self.izquierda = None
         self.derecha = None
 
-
+# BST
 class BST:
+
     """
     Árbol Binario de Búsqueda (Binary Search Tree) ordenado por event_id.
 
@@ -47,7 +52,9 @@ class BST:
     """
 
     def __init__(self):
+
         """Inicializa un árbol vacío."""
+
         self._raiz = None
         self._tamanio = 0
 
@@ -71,6 +78,7 @@ class BST:
             self._tamanio += 1
 
     def _insertar_rec(self, nodo, evento):
+
         """
         Inserción recursiva. Retorna el nodo actualizado y si fue insertado.
 
@@ -81,6 +89,7 @@ class BST:
         Returns:
             tuple: (nodo actualizado, bool indicando si fue nuevo)
         """
+
         if nodo is None:
             return NodoBST(evento), True
 
@@ -100,6 +109,7 @@ class BST:
     # -----------------------------------------------------------------------
 
     def buscar(self, event_id):
+
         """
         Busca un evento por su event_id.
 
@@ -111,10 +121,12 @@ class BST:
 
         Complejidad: O(log n) promedio.
         """
+
         nodo = self._buscar_rec(self._raiz, event_id)
         return nodo.evento if nodo else None
 
     def _buscar_rec(self, nodo, event_id):
+
         """
         Búsqueda recursiva por event_id.
 
@@ -125,6 +137,7 @@ class BST:
         Returns:
             NodoBST: El nodo encontrado, o None si no existe.
         """
+
         if nodo is None or nodo.evento.event_id == event_id:
             return nodo
 
@@ -137,6 +150,7 @@ class BST:
     # -----------------------------------------------------------------------
 
     def eliminar(self, event_id):
+
         """
         Elimina el evento con el event_id dado.
 
@@ -151,11 +165,13 @@ class BST:
 
         Complejidad: O(log n) promedio.
         """
+
         self._raiz, eliminado = self._eliminar_rec(self._raiz, event_id)
         if eliminado:
             self._tamanio -= 1
 
     def _eliminar_rec(self, nodo, event_id):
+
         """
         Eliminación recursiva. Retorna el nodo actualizado y si fue eliminado.
 
@@ -166,6 +182,7 @@ class BST:
         Returns:
             tuple: (nodo actualizado, bool indicando si fue eliminado)
         """
+
         if nodo is None:
             return None, False
 
@@ -197,6 +214,7 @@ class BST:
     # -----------------------------------------------------------------------
 
     def minimo(self):
+
         """
         Retorna el evento con el event_id más pequeño.
 
@@ -205,11 +223,13 @@ class BST:
 
         Complejidad: O(log n).
         """
+
         if self._raiz is None:
             return None
         return self._minimo_nodo(self._raiz).evento
 
     def _minimo_nodo(self, nodo):
+
         """
         Retorna el nodo con el event_id más pequeño desde un nodo dado.
         Siempre es el nodo más a la izquierda.
@@ -220,11 +240,13 @@ class BST:
         Returns:
             NodoBST: El nodo más a la izquierda.
         """
+
         while nodo.izquierda is not None:
             nodo = nodo.izquierda
         return nodo
 
     def maximo(self):
+
         """
         Retorna el evento con el event_id más grande.
 
@@ -233,6 +255,7 @@ class BST:
 
         Complejidad: O(log n).
         """
+
         if self._raiz is None:
             return None
         nodo = self._raiz
@@ -245,6 +268,7 @@ class BST:
     # -----------------------------------------------------------------------
 
     def inorden(self):
+
         """
         Retorna todos los eventos ordenados por event_id (ascendente).
 
@@ -256,11 +280,13 @@ class BST:
 
         Complejidad: O(n).
         """
+
         resultado = []
         self._inorden_rec(self._raiz, resultado)
         return resultado
 
     def _inorden_rec(self, nodo, resultado):
+
         """
         Recorrido inorden recursivo.
 
@@ -268,6 +294,7 @@ class BST:
             nodo (NodoBST): Nodo actual.
             resultado (list): Lista donde se acumulan los eventos.
         """
+
         if nodo is not None:
             self._inorden_rec(nodo.izquierda, resultado)
             resultado.append(nodo.evento)
@@ -278,21 +305,25 @@ class BST:
     # -----------------------------------------------------------------------
 
     def esta_vacio(self):
+
         """
         Indica si el árbol no tiene elementos.
 
         Returns:
             bool: True si está vacío, False si tiene elementos.
         """
+
         return self._raiz is None
 
     def tamanio(self):
+
         """
         Retorna la cantidad de eventos en el árbol.
 
         Returns:
             int: Número de eventos almacenados.
         """
+        
         return self._tamanio
 
     def __repr__(self):
