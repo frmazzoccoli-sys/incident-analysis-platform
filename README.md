@@ -10,7 +10,6 @@ incident-analysis-platform/
 ├── benchmarks/                      # scripts de evaluación de performance
 │       └── benchmark.py             # script que genera y mide datasets de tamaños crecientes
 ├── data/                            # datasets, pruebas, ejemplos, archivos de entrada/salida
-├── docs/                            # documentación
 ├── tests/                           # pruebas unitarias y validaciones
 │
 ├── src/                             # código fuente del proyecto
@@ -25,8 +24,7 @@ incident-analysis-platform/
 │   ├── algoritmos/                  # búsquedas, ordenamientos
 |   │       ├── __init__.py
 │   │       ├── busqueda.py          # secuencial + binaria
-│   │       └── ordenamiento.py      # mergesort + quicksort
-│   ├── seguridad/                   # RSA, cifrado, hashing
+│   │       └── ordenamiento.py      # burbuja + mergesort
 │   ├── metricas/                    # timeit, complejidad, benchmarking
 │   │       ├── __init__.py
 │   │       ├── medidor.py           # funciones de medición con timeit y tracemalloc
@@ -43,15 +41,13 @@ incident-analysis-platform/
 └── README.md             # descripción, uso e instrucciones
 ```
 ```
-data/ → datasets, ejemplos, archivos de entrada/salida, benchmarl
-docs/ → documentación del proyecto
+data/ → datasets, ejemplos, archivos de entrada/salida
 tests/ → pruebas unitarias y validaciones
 src/ → código fuente del proyecto
 main.py → punto de entrada del programa
 modelos/ → Event
 estructuras/ → queue, heap, NodoBST, BST
 algoritmos/ → búsquedas, ordenamientos
-seguridad/ → RSA, cifrado, hashing
 metricas/ → timeit, complejidad, benchmarking
 servicios/ → EventStore, Index, Router, TextAnalyzer
 utils/ → funciones auxiliares reutilizables
