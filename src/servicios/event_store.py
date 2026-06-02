@@ -1,4 +1,4 @@
-# src/servicios/event_store.py
+﻿from src.servicios.index import Index
 
 
 class EventStore:
@@ -11,29 +11,39 @@ class EventStore:
 
     Atributos:
         _eventos (list): Lista interna de eventos almacenados.
+        index (Index): Índice integrado para búsquedas rápidas.
 
     Operaciones principales:
         agregar   → O(1)
-        obtener   → O(n)
+        obtener   → O(1) con índice
         eliminar  → O(n)
         listar    → O(1)
-        tamanio   → O(1)
+        buscar_por_categoria → O(1)
+        buscar_por_origen   → O(1)
     """
 
     def __init__(self):
-        """Inicializa un store vacío."""
+        """Inicializa un store e índice vacíos."""
         self._eventos = []
+        self.index = Index()
 
     def agregar(self, evento):
         """
-        Agrega un evento al store.
+        Agrega un evento al store e indexa automáticamente sus claves.
+
+        Si ya existe un evento con el mismo ID, reemplaza el registro
+        anterior para mantener el store consistente.
 
         Args:
             evento (Event): El incidente a almacenar.
 
         Complejidad: O(1)
         """
+        if self.index.buscar_por_id(evento.event_id) is not None:
+            self.eliminar(evento.event_id)
+
         self._eventos.append(evento)
+        self.index.agregar(evento)
 
     def obtener(self, event_id):
         """
@@ -45,16 +55,13 @@ class EventStore:
         Returns:
             Event: El evento encontrado, o None si no existe.
 
-        Complejidad: O(n) — búsqueda secuencial sobre la lista.
+        Complejidad: O(1) a través del índice.
         """
-        for evento in self._eventos:
-            if evento.event_id == event_id:
-                return evento
-        return None
+        return self.index.buscar_por_id(event_id)
 
     def eliminar(self, event_id):
         """
-        Elimina un evento del store por su event_id.
+        Elimina un evento del store y del índice por su event_id.
 
         Args:
             event_id (str): Identificador del evento a eliminar.
@@ -62,11 +69,12 @@ class EventStore:
         Returns:
             bool: True si fue eliminado, False si no existía.
 
-        Complejidad: O(n)
+        Complejidad: O(n) para búsqueda en la lista + O(1) para eliminación en el índice.
         """
         for i, evento in enumerate(self._eventos):
             if evento.event_id == event_id:
                 self._eventos.pop(i)
+                self.index.eliminar(event_id)
                 return True
         return False
 
@@ -80,6 +88,34 @@ class EventStore:
         Complejidad: O(n)
         """
         return self._eventos[:]
+
+    def buscar_por_categoria(self, categoria):
+        """
+        Retorna todos los eventos indexados por categoría.
+
+        Args:
+            categoria (str): La categoría a consultar.
+
+        Returns:
+            list[Event]: Lista de eventos de esa categoría.
+
+        Complejidad: O(1)
+        """
+        return self.index.buscar_por_categoria(categoria)
+
+    def buscar_por_origen(self, origen):
+        """
+        Retorna todos los eventos indexados por origen.
+
+        Args:
+            origen (str): El origen a consultar.
+
+        Returns:
+            list[Event]: Lista de eventos de ese origen.
+
+        Complejidad: O(1)
+        """
+        return self.index.buscar_por_origen(origen)
 
     def tamanio(self):
         """
@@ -104,4 +140,4 @@ class EventStore:
         return len(self._eventos) == 0
 
     def __repr__(self):
-        return f"EventStore(tamanio={self.tamanio()})"
+        return f"EventStore(tamanio={self.tamanio()}, index={self.index})"

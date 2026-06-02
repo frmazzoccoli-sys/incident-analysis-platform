@@ -7,6 +7,7 @@ from src.servicios.event_store import EventStore
 from src.servicios.index import Index
 from src.servicios.router import Router
 from src.servicios.text_analyzer import TextAnalyzer
+from src.estructuras.priority_queue import PriorityQueueEventos
 
 
 # ---------------------------------------------------------------------------
@@ -89,6 +90,35 @@ class TestEventStore:
         lista = store.listar()
         lista.clear()
         assert store.tamanio() == 1
+
+    def test_eventstore_actualiza_indice_automaticamente(self, e1):
+        store = EventStore()
+        store.agregar(e1)
+
+        assert store.obtener("E001") is e1
+        assert store.buscar_por_categoria("seguridad") == [e1]
+        assert store.buscar_por_origen("servidor-A") == [e1]
+
+    def test_flow_crear_almacenar_indexar_analizar_priorizar(self, e1, e2):
+        store = EventStore()
+        analyzer = TextAnalyzer()
+        queue = PriorityQueueEventos()
+
+        store.agregar(e1)
+        store.agregar(e2)
+
+        eventos_seguridad = store.buscar_por_categoria("seguridad")
+        eventos_latencia = analyzer.buscar_por_palabra(store.listar(), "latencia")
+
+        assert eventos_seguridad == [e1]
+        assert eventos_latencia == [e2]
+
+        queue.push(e1)
+        queue.push(e2)
+
+        primero = queue.pop()
+        assert primero.event_id == "E001"
+        assert queue.tamanio() == 1
 
 
 # ---------------------------------------------------------------------------
