@@ -1,3 +1,5 @@
+# src/estructuras/priority_queue.py
+
 import heapq
 import itertools
 

@@ -1,3 +1,5 @@
+# src/modelos/event.py
+
 class Event:
     """
     Clase que representa un incidente.

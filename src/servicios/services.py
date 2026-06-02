@@ -1,3 +1,5 @@
+# src/servicios/services.py
+
 class EventStore:
     """
     Almacena y gestiona eventos.

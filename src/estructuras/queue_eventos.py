@@ -1,3 +1,5 @@
+# src/estructuras/queue_eventos.py
+
 from collections import deque
 
 

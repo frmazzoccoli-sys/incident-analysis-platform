@@ -38,3 +38,90 @@ Decisión                                      Alternativa descartada         Ra
 ´deque´ para Queue                            list                         popleft() es O(1) vs O(n)
 ´heapq´ para Priority                         Solo (prioridad, evento)     Desempate determinístico sin comparar objetos
 Prioridad 1 = más crítico (min-heap directo)  Invertir con -1                Más legible, no requiere transformación
+
+-----------------------------
+
+BST
+Un Binary Search Tree es un árbol binario donde cada nodo cumple esta propiedad:
+        E004
+       /    \
+    E002    E006
+    /  \    /  \
+ E001  E003 E005 E007
+
+Todo lo que está a la izquierda de un nodo tiene un valor menor
+Todo lo que está a la derecha tiene un valor mayor
+
+Esto permite buscar en O(log n) en lugar de O(n) de una lista, porque en cada paso descartamos la mitad del árbol.
+
+En nuestro sistema tenemos eventos con event_id. Sin un BST, buscar un evento por ID requiere recorrer toda la lista: O(n). Con un BST ordenado por event_id:
+Operación                       Lista               BST
+Insertar                        O(1)                O(log n)
+Buscar                          O(n)                O(log n)
+Eliminar                        O(n)                O(log n)
+Recorrer ordenado               O(n log n)          O(n)
+El recorrido ordenado es gratis en un BST usando inorden (izquierda → raíz → derecha).
+
+¿Por qué no usar un diccionario directamente?
+Un diccionario también busca en O(1). La razón de implementar BST es:
+
+El TP lo requiere explícitamente
+Un BST permite recorrer eventos ordenados sin costo extra
+Permite búsquedas por rango (todos los eventos entre E010 y E050)
+Demuestra comprensión de estructuras jerárquicas para el informe
+
+¿Por qué campo ordenamos?
+Tenemos estas opciones:
+Campo               Ventaja
+event_id            Búsqueda directa por identificador
+timestamp           Consultas cronológicas y por rango de tiempo
+prioridad           Ya lo cubre la PriorityQueue
+
+La opción más útil y complementaria a lo que ya tenemos es event_id, porque la PriorityQueue ya cubre prioridad y la búsqueda por ID es la consulta más común en cualquier sistema de incidentes.
+
+-------------------------
+
+Diseño de la clase Nodo
+Cada nodo del árbol necesita guardar:
+
+class NodoBST:
+    evento        # el objeto Event
+    izquierda     # referencia al hijo izquierdo
+    derecha       # referencia al hijo derecho
+
+Es una clase simple, sin lógica propia. Toda la lógica vive en el BST.
+
+Operaciones que vamos a implementar
+insertar            Agregar un evento al árbol                      O(log n)
+buscar              Encontrar un evento por event_id                O(log n)
+eliminar            Quitar un evento del árbol                      O(log n)
+inorden             Listar todos los eventos ordenados por event_id O(n)
+minimo              Evento con el event_id más pequeño              O(log n)
+maximo              Evento con el event_id más grande               O(log n)
+
+--------------------------
+
+Eliminar un nodo
+
+Eliminar tiene tres casos:
+Caso 1 — El nodo no tiene hijos (es una hoja): simplemente se elimina.
+Antes:         Después:
+   E004           E004
+   /              /
+ E002           (vacío)
+
+Caso 2 — El nodo tiene un solo hijo: se reemplaza por su hijo.
+Antes:         Después:
+   E004           E004
+   /              /
+ E002           E001
+ /
+E001
+
+Caso 3 — El nodo tiene dos hijos: se reemplaza por su sucesor inorden (el menor de los mayores), que es el nodo más a la izquierda del subárbol derecho.
+Antes:         Después:
+   E004           E005
+   /  \           /  \
+ E002  E006     E002  E006
+       /
+     E005
