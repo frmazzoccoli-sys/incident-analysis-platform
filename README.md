@@ -15,6 +15,8 @@ Esta aplicación implementa un flujo de negocio de gestión de incidentes que in
 
 - Python 3.11+ recomendado
 - entorno virtual (`venv`) para dependencias
+- El archivo `requirements.txt` actualmente contiene solo `pytest>=7.0`
+  para ejecutar las pruebas.
 
 ## Instalación
 
