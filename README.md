@@ -54,4 +54,18 @@ utils/ → funciones auxiliares reutilizables
 requirements.txt → dependencias del proyecto
 README.md → descripción, uso e instrucciones
 __init__.py → marca carpetas como paquetes Python importables.
+
+## Ejecución del benchmark
+
+Desde la raíz del proyecto, ejecutar:
+
+```powershell
+& ".venv\Scripts\python.exe" benchmarks/benchmark.py
+```
+
+Si el entorno virtual ya está activado, también sirve:
+
+```powershell
+python benchmarks/benchmark.py
+```
 ```
